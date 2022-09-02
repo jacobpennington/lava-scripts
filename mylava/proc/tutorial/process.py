@@ -42,7 +42,3 @@ class LIF(AbstractProcess):
         self.bias_mant = Var(shape=shape, init=bias_mant)
         self.bias_exp = Var(shape=shape, init=bias_exp)
         self.vth = Var(shape=(1,), init=vth)
-
-
-class GLIF(AbstractProcess):
-    pass
