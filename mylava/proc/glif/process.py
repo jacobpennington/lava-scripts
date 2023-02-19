@@ -4,7 +4,8 @@ from lava.magma.core.process.ports.ports import InPort, OutPort
 
 
 class GLIF(AbstractProcess):
-    
+    # AD: AIBS tends to define parameters in a dictionary. You can experiment with getting and parsing a dictionary with name:value relation
+    # the call format is much simpler, although requires some internal parsing.
     def __init__(self, shape=(1,), one_time_constant=True, initial_current=0.0,
                  initial_voltage=0.0, current_time_constant=0.0, capacitance=0.0,
                  resistance=0.0, threshold=0.0, reset=0.0, resting=0.0,
@@ -32,6 +33,9 @@ class GLIF(AbstractProcess):
             shape=tc_shape, init=current_time_constant
             )
         # TODO: option to have these be shape (1,) similar to time constants?
+        # AD: for most of those - consider recent discussions in 583, of filter vs ODE representation. 
+        # all these 'post-synaptic current' are probably better or more easily represented as separate states with their
+        # own dynamics.
         self.capacitance = Var(shape=shape, init=capacitance)
         self.resistance = Var(shape=shape, init=resistance)
         self.threshold = Var(shape=shape, init=threshold)
