@@ -38,6 +38,8 @@ class PyLifModel1(PyLoihiProcessModel):
         self.u[:] = self.u * (1 - self.du)
         self.u[:] += a_in_data
         bias = self.bias_mant * (2 ** self.bias_exp)
+        # AD: these are better if defined as integers, and used as
+        # bias = self.bias_mant << self.bias_exp  # left bit shift; faster, and actually approximates what Loihi is doing
         self.v[:] = self.v * (1 - self.dv) + self.u + bias
         s_out = self.v >= self.vth
         self.v[s_out] = 0  # Reset voltage to 0
