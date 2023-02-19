@@ -63,6 +63,8 @@ class PyGlifModelCPU(PyLoihiProcessModel):
         self.current[...] += data_in  # TODO: how is this weighted?
         self.last_AS_currents[...] = self.after_spike_currents
         self.after_spike_currents[...] *= (1 - self.after_spike_time_constants)
+        # AD; related to what I said in the process: think about implementing the post-currents as states with separate dynamics. 
+        # then things may be easier.
 
     def _update_voltage(self):
         dv = (self.current + self._after_spike_currents() - self._leak())
